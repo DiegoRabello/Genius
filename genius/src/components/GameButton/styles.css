@@ -1,0 +1,51 @@
+#Number-0 {
+  background-color: red;
+  border-top-left-radius: 32px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+#Number-1 {
+  background-color: green;
+  border-top-right-radius: 32px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+#Number-2 {
+  background-color: blue;
+  border-bottom-left-radius: 32px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+#Number-3 {
+  background-color: yellow;
+  border-bottom-right-radius: 32px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+#Number-0:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  
+}
+#Number-1:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+#Number-2:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+#Number-3:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
