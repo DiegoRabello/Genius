@@ -1,21 +1,27 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./styles.module.css";
+import { useEffect, useState } from "react";
+import styles from './styles.module.css'
 
-export function TryAgain({level}) {
+export function TryAgain() {
+  const [maxScore, setMaxScore] = useState(0);
   const navigate = useNavigate();
 
-  const handleTryAgain = () => {
-    navigate("/");
-  };
+  useEffect(() => {
+    const storedMaxScore = localStorage.getItem('maxScore');
+    if (storedMaxScore) {
+      setMaxScore(parseInt(storedMaxScore));
+    }
+  }, []);
 
+  function handlePlayAgain() {
+    navigate('/');
+  }
 
   return (
-    <div>
-      <div className={styles.tryAgain}>
-        <h1>Game Over</h1>
-        <p>Score Máximo: {level}</p>
-        <button className={styles.tryAgainButton} onClick={handleTryAgain} >Try Again</button>
-      </div>
+    <div className={styles["try-again-container"]}>
+      <h1>Game Over</h1>
+      <h2>Pontuação máxima: {maxScore}</h2>
+      <button onClick={handlePlayAgain}>Jogar Novamente</button>
     </div>
   );
-};
+}
