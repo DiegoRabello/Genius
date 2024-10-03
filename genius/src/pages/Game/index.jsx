@@ -55,7 +55,7 @@ export function Game() {
     if (!isShowingSequence && !gameOver && gameStarted) {
       const newUserSequence = [...userSequence, color];
       setUserSequence(newUserSequence);
-      
+
       // Focar o botão
       buttonRefs.current[color].focus();
 
