@@ -10,7 +10,7 @@ export const Router = () => {
     <Routes>
       <Route path="/" element={<Play />} />
       <Route path="/game" element={<Game />} />
-      <Route path="/try-again" element={<TryAgain />} />
+      <Route path="/tryagain" element={<TryAgain />} />
     </Routes>
   );
 };

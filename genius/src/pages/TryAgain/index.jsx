@@ -1,10 +1,21 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./styles.module.css";
 
-export const TryAgain = () => {
+export function TryAgain({level}) {
+  const navigate = useNavigate();
+
+  const handleTryAgain = () => {
+    navigate("/");
+  };
+
+
   return (
     <div>
-      <h1>Página do Jogo</h1>
-      {/* Adicione o conteúdo da sua página de jogo aqui */}
+      <div className={styles.tryAgain}>
+        <h1>Game Over</h1>
+        <p>Score: {level}</p>
+        <button className={styles.tryAgainButton} onClick={handleTryAgain} >Try Again</button>
+      </div>
     </div>
   );
 };
