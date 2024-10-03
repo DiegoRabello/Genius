@@ -1,7 +1,7 @@
 import { GameButton } from "../../components/GameButton/index";
 import { useState, useEffect, useRef } from "react";
 import "./game.css";
-import { Play } from "../Play";
+// Remova a linha: import { Play } from "../Play";
 export function Game() {
   const [sequence, setSequence] = useState([]);
   const [gameOver, setGameOver] = useState(false);
