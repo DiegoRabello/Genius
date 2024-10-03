@@ -55,6 +55,14 @@ export function Game() {
     if (!isShowingSequence && !gameOver && gameStarted) {
       const newUserSequence = [...userSequence, color];
       setUserSequence(newUserSequence);
+      
+      // Focar o botão
+      buttonRefs.current[color].focus();
+
+      // Remover o foco do botão após 300ms
+      setTimeout(() => {
+        buttonRefs.current[color].blur();
+      }, 300);
 
       if (color !== sequence[currentIndex]) {
         setGameOver(true);
