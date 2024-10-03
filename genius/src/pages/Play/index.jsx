@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
-import { useState } from "react";
+import { useGameContext } from "../../GameContext";
 
 export function Play() {
-  // const navigate = useNavigate();
-  const [gameStarted, setGameStarted] = useState(false);
+  const navigate = useNavigate();
+  const { setGameStarted } = useGameContext();
 
   const handlePlayClick = () => {
     setGameStarted(true);
-    console.log('play gameStarted', gameStarted)
+    navigate("/game");
   };
 
   return (

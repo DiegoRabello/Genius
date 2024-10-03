@@ -1,7 +1,7 @@
 import { GameButton } from "../../components/GameButton/index";
 import { useState, useEffect, useRef } from "react";
 import "./game.css";
-import { Play } from "../Play";
+// Remova a linha: import { Play } from "../Play";
 export function Game() {
   const [sequence, setSequence] = useState([]);
   const [gameOver, setGameOver] = useState(false);
@@ -55,6 +55,14 @@ export function Game() {
     if (!isShowingSequence && !gameOver && gameStarted) {
       const newUserSequence = [...userSequence, color];
       setUserSequence(newUserSequence);
+
+      // Focar o botão
+      buttonRefs.current[color].focus();
+
+      // Remover o foco do botão após 300ms
+      setTimeout(() => {
+        buttonRefs.current[color].blur();
+      }, 300);
 
       if (color !== sequence[currentIndex]) {
         setGameOver(true);
