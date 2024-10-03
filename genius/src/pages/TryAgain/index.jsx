@@ -13,7 +13,7 @@ export function TryAgain({level}) {
     <div>
       <div className={styles.tryAgain}>
         <h1>Game Over</h1>
-        <p>Score: {level}</p>
+        <p>Score Máximo: {level}</p>
         <button className={styles.tryAgainButton} onClick={handleTryAgain} >Try Again</button>
       </div>
     </div>

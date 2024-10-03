@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
-import { useState } from "react";
+
 export function Play() {
   const navigate = useNavigate();
 
