@@ -3,7 +3,6 @@ import styles from "./styles.module.css";
 
 export function Play() {
   const navigate = useNavigate();
- 
 
   const handlePlayClick = () => {
     navigate("/game");
