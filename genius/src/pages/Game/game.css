@@ -4,8 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  margin: 0 auto;
-  
+  margin: auto;
 }
 .game-info {
   display: flex;
@@ -25,14 +24,59 @@
   font-weight: 400;
   color: #fff;
 }
+.play {
+  background-color: yellow;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
 
 .game-container {
-    max-height: 50%;
+  background-color: #000;
+  padding: 40px;  
+  border-radius: 100%;
+  max-height: 50%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin: 0 auto;
   outline: none;
-  width: 40%;
+  min-width: 25%;
   height: 50vw;
- 
+  gap: 10px;
+}
+.players {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;  
+  
+}
+.player1 .player2 {
+  color: #ffff;
+  transition: all 0.3s ease-in-out;
+}
+.player1:hover {
+  transform: scale(1.2);
+  color: #1900ff;
+}
+.player2:hover {
+  transform: scale(1.2);
+  color: #1900ff;
+}
+
+
+.bola {
+  background-color: #000000;
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

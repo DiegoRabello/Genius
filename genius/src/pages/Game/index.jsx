@@ -1,14 +1,18 @@
 import { GameButton } from "../../components/GameButton/index";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./game.css";
+
 // Remova a linha: import { Play } from "../Play";
 export function Game() {
+  const navigate = useNavigate();
   const [sequence, setSequence] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [level, setLevel] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isShowingSequence, setIsShowingSequence] = useState(false);
-  const [userSequence, setUserSequence] = useState([]);
+  const [userSequenceP1, setUserSequenceP1] = useState([]);
+  const [userSequenceP2, setUserSequenceP2] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
   const buttonRefs = useRef({});
 
@@ -20,7 +24,6 @@ export function Game() {
 
   function startGame() {
     setGameStarted(true);
-    console.log('gameStarted', gameStarted)
     setLevel(1);
     setSequence([getRandomColor()]);
     setGameOver(false);
@@ -28,7 +31,8 @@ export function Game() {
 
   function startNewRound() {
     setIsShowingSequence(true);
-    setUserSequence([]);
+    setUserSequenceP1([]);
+    setUserSequenceP2([]);
     setCurrentIndex(0);
     showSequence();
   }
@@ -53,8 +57,8 @@ export function Game() {
 
   function handleButtonClick(color) {
     if (!isShowingSequence && !gameOver && gameStarted) {
-      const newUserSequence = [...userSequence, color];
-      setUserSequence(newUserSequence);
+      const newUserSequence = [...userSequenceP1, color];
+      setUserSequenceP1(newUserSequence);
 
       // Focar o botão
       buttonRefs.current[color].focus();
@@ -66,6 +70,8 @@ export function Game() {
 
       if (color !== sequence[currentIndex]) {
         setGameOver(true);
+        navigate("/tryagain");
+        localStorage.setItem("maxScore", level);
         return;
       }
 
@@ -84,22 +90,34 @@ export function Game() {
     return colors[Math.floor(Math.random() * colors.length)];
   }
 
-  function resetGame() {
-    setSequence([]);
-    setGameOver(false);
-    setLevel(0);
-    setCurrentIndex(0);
-    setUserSequence([]);
-    setGameStarted(false);
-  }
+  // function resetGame() {
+  //   setSequence([]);
+  //   setGameOver(false);
+  //   setLevel(0);
+  //   setCurrentIndex(0);
+  //   setUserSequenceP1([]);
+  //   setUserSequenceP2([]);
+  //   setGameStarted(false);
+  // }
 
   return (
     <div className="container">
       <div className="game-info">
         <h1>Genius</h1>
         <h3>Level: {level}</h3>
-        {!gameStarted && <button onClick={startGame}>Play</button>}
-        {gameOver && <button onClick={resetGame}>Reiniciar</button>}
+        <div className="players">
+          <div className="player1">
+            <p>Player 1</p>
+          </div>
+          {!gameStarted && (
+            <button className="play" onClick={startGame}>
+              Começar
+            </button>
+          )}
+          <div className="player2">
+            <p>Player 2</p>
+          </div>
+        </div>
       </div>
       <div className="game-container">
         <GameButton
@@ -130,6 +148,7 @@ export function Game() {
           onClick={() => handleButtonClick("Yellow")}
           ref={(el) => (buttonRefs.current["Yellow"] = el)}
         />
+        <div className="bola"></div>
       </div>
     </div>
   );
