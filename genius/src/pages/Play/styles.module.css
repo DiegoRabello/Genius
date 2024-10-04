@@ -7,9 +7,9 @@
 }
 
 .play h1 {
-  font-size: 48px;
+  font-size: 100px;
   font-weight: bold;
-  
+  font-family: "Rubik Mono One", monospace;
   color: #fff;
   margin-bottom: 100px;
 }
@@ -45,7 +45,7 @@
 
 .playersName p {
   font-weight: bold;
-  color: #000000;
+  color: #ffffff;
 }
 
 .playersName input {
@@ -57,4 +57,3 @@
   border-radius: 5px;
   padding: 5px;
 }
-

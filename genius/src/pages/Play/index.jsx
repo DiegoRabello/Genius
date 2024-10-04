@@ -22,12 +22,12 @@ export function Play() {
       <button onClick={handleStartGame}>Iniciar Jogo</button>
       <div className={styles.playersName}>
         <div className={styles.player1}>
-          <p>Name Player 1</p>
+          <p>Nome do Jogador 1</p>
           <input type="text" placeholder="Player 1" onChange={(e) => setPlayerName1(e.target.value)} value={playerName1} />
 
         </div>
         <div className={styles.player2}>
-          <p>Name Player 2</p>
+          <p>Nome do Jogador 2</p>
           <input type="text" placeholder="Player 2" onChange={(e) => setPlayerName2(e.target.value)} value={playerName2} />
         </div>
       </div>
