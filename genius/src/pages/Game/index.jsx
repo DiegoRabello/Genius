@@ -9,6 +9,7 @@ export function Game() {
 
   const [playerName1, setPlayerName1] = useState("");
   const [playerName2, setPlayerName2] = useState("");
+  const [visiblePlayer, setVisiblePlayer] = useState(false);
   const [stylePlayer1, setStylePlayer1] = useState("ativo");
   const [stylePlayer2, setStylePlayer2] = useState("inativo");
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ export function Game() {
   const buttonRefs = useRef({});
 
   useEffect(() => {
-    // Tentar obter o nome do estado da rota
     const nameFromState = location.state?.playerName;
 
     if (nameFromState) {
@@ -30,20 +30,27 @@ export function Game() {
       setPlayerName2(nameFromState);
     } else {
       // Se não estiver no estado da rota, tentar obter do localStorage
-      const nameFromStorage = localStorage.getItem("playerName1");
-      const nameFromStorage2 = localStorage.getItem("playerName2");
-      if (nameFromStorage) {
-        setPlayerName1(nameFromStorage);
+      if (playerName1) {
+        const nameFromStorage = localStorage.getItem("playerName1");
+        if (nameFromStorage) {
+          setPlayerName1(nameFromStorage);
+        }
       }
-      if (nameFromStorage2) {
-        setPlayerName2  (nameFromStorage2);
+      if (playerName2) {
+        const nameFromStorage2 = localStorage.getItem("playerName2");
+        if (nameFromStorage2) {
+          setPlayerName2(nameFromStorage2);
+        }
+      } else {
+        setPlayerName1("Player 1");
+        setPlayerName2("Player 2");
       }
     }
 
     if (gameStarted && !gameOver) {
       startNewRound();
     }
-  }, [level, gameStarted, location, playerName1, playerName2]); 
+  }, [level, gameStarted, location, playerName1, playerName2]);
 
   function startGame() {
     setGameStarted(true);
@@ -133,19 +140,27 @@ export function Game() {
       <div className="game-info">
         <h1>Genius</h1>
         <h3>Level: {level}</h3>
-        <div className="players">
-          <div className="player1">
-            <Player playerStyle={stylePlayer1} name={playerName1} />
+        {playerName1 !== "Player 1" && playerName2 !== "Player 2" ? (
+          <div className="players">
+            <div className="player1">
+              <Player playerStyle={stylePlayer1} name={playerName1} />
+            </div>
+            {!gameStarted && (
+              <button className="play" onClick={startGame}>
+                Começar
+              </button>
+            )}
+            <div className="player2">
+              <Player playerStyle={stylePlayer2} name={playerName2} />
+            </div>
           </div>
-          {!gameStarted && (
+        ) : (
+          !gameStarted && (
             <button className="play" onClick={startGame}>
               Começar
             </button>
-          )}
-          <div className="player2">
-            <Player playerStyle={stylePlayer2} name={playerName2} />
-          </div>
-        </div>
+          )
+        )}
       </div>
       <div className="game-container">
         <GameButton
