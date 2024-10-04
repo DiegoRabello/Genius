@@ -1,10 +1,16 @@
 import { GameButton } from "../../components/GameButton/index";
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./game.css";
+import { Player } from "../../components/Player";
 
-// Remova a linha: import { Play } from "../Play";
 export function Game() {
+  const location = useLocation();
+
+  const [playerName1, setPlayerName1] = useState("");
+  const [playerName2, setPlayerName2] = useState("");
+  const [stylePlayer1, setStylePlayer1] = useState("ativo");
+  const [stylePlayer2, setStylePlayer2] = useState("inativo");
   const navigate = useNavigate();
   const [sequence, setSequence] = useState([]);
   const [gameOver, setGameOver] = useState(false);
@@ -12,15 +18,32 @@ export function Game() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isShowingSequence, setIsShowingSequence] = useState(false);
   const [userSequenceP1, setUserSequenceP1] = useState([]);
-  const [userSequenceP2, setUserSequenceP2] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
   const buttonRefs = useRef({});
 
   useEffect(() => {
+    // Tentar obter o nome do estado da rota
+    const nameFromState = location.state?.playerName;
+
+    if (nameFromState) {
+      setPlayerName1(nameFromState);
+      setPlayerName2(nameFromState);
+    } else {
+      // Se não estiver no estado da rota, tentar obter do localStorage
+      const nameFromStorage = localStorage.getItem("playerName1");
+      const nameFromStorage2 = localStorage.getItem("playerName2");
+      if (nameFromStorage) {
+        setPlayerName1(nameFromStorage);
+      }
+      if (nameFromStorage2) {
+        setPlayerName2  (nameFromStorage2);
+      }
+    }
+
     if (gameStarted && !gameOver) {
       startNewRound();
     }
-  }, [level, gameStarted]);
+  }, [level, gameStarted, location, playerName1, playerName2]); 
 
   function startGame() {
     setGameStarted(true);
@@ -32,7 +55,7 @@ export function Game() {
   function startNewRound() {
     setIsShowingSequence(true);
     setUserSequenceP1([]);
-    setUserSequenceP2([]);
+
     setCurrentIndex(0);
     showSequence();
   }
@@ -70,7 +93,15 @@ export function Game() {
 
       if (color !== sequence[currentIndex]) {
         setGameOver(true);
-        navigate("/tryagain");
+
+        if (stylePlayer1 === "ativo") {
+          alert(`Game Over ${playerName1}`);
+          navigate("/tryagain");
+        } else {
+          alert(`Game Over ${playerName2}`);
+          navigate("/tryagain");
+        }
+
         localStorage.setItem("maxScore", level);
         return;
       }
@@ -79,6 +110,13 @@ export function Game() {
         // Jogador completou a sequência corretamente
         setLevel((prevLevel) => prevLevel + 1);
         setSequence((prevSequence) => [...prevSequence, getRandomColor()]);
+        if (currentIndex % 2 !== 0) {
+          setStylePlayer1("ativo");
+          setStylePlayer2("inativo");
+        } else {
+          setStylePlayer1("inativo");
+          setStylePlayer2("ativo");
+        }
       } else {
         setCurrentIndex((prevIndex) => prevIndex + 1);
       }
@@ -90,16 +128,6 @@ export function Game() {
     return colors[Math.floor(Math.random() * colors.length)];
   }
 
-  // function resetGame() {
-  //   setSequence([]);
-  //   setGameOver(false);
-  //   setLevel(0);
-  //   setCurrentIndex(0);
-  //   setUserSequenceP1([]);
-  //   setUserSequenceP2([]);
-  //   setGameStarted(false);
-  // }
-
   return (
     <div className="container">
       <div className="game-info">
@@ -107,7 +135,7 @@ export function Game() {
         <h3>Level: {level}</h3>
         <div className="players">
           <div className="player1">
-            <p>Player 1</p>
+            <Player playerStyle={stylePlayer1} name={playerName1} />
           </div>
           {!gameStarted && (
             <button className="play" onClick={startGame}>
@@ -115,7 +143,7 @@ export function Game() {
             </button>
           )}
           <div className="player2">
-            <p>Player 2</p>
+            <Player playerStyle={stylePlayer2} name={playerName2} />
           </div>
         </div>
       </div>

@@ -1,0 +1,20 @@
+.ativo {
+  background-color: #002fff;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 10px;
+  color: #ffffff;
+  
+}
+.inativo {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  padding: 5px;
+  border-radius: 10px;
+}
