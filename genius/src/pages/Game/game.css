@@ -5,6 +5,7 @@
   justify-content: center;
   height: 100vh;
   margin: auto;
+  position: relative;
 }
 .game-info {
   display: flex;
@@ -16,8 +17,9 @@
 }
 .game-info h1 {
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 400;
   color: #fff;
+  font-family: "Rubik Mono One", monospace;
 }
 .game-info h3 {
   font-size: 20px;
@@ -37,7 +39,7 @@
 
 .game-container {
   background-color: #000;
-  padding: 40px;  
+  padding: 40px;
   border-radius: 100%;
   max-height: 50%;
   display: grid;
@@ -53,8 +55,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 100px;  
-  
+  gap: 100px;
 }
 .player1 .player2 {
   color: #ffff;
@@ -68,7 +69,6 @@
   transform: scale(1.2);
   color: #1900ff;
 }
-
 
 .bola {
   background-color: #000000;

@@ -3,13 +3,13 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./game.css";
 import { Player } from "../../components/Player";
+import { Footer } from "../../components/Footer";
 
 export function Game() {
   const location = useLocation();
 
   const [playerName1, setPlayerName1] = useState("");
   const [playerName2, setPlayerName2] = useState("");
-  const [visiblePlayer, setVisiblePlayer] = useState(false);
   const [stylePlayer1, setStylePlayer1] = useState("ativo");
   const [stylePlayer2, setStylePlayer2] = useState("inativo");
   const navigate = useNavigate();
@@ -193,6 +193,7 @@ export function Game() {
         />
         <div className="bola"></div>
       </div>
+      
     </div>
   );
 }
